@@ -33,5 +33,5 @@
 
 - fetch:
     src: /var/lib/go-agent/config/guid.txt
-    dest: ~/workspace/Project Perform-Blue-Green-Deployment-Catalog/guid.txt
+    dest: ~/workspace/Perform-Blue-Green-Deployment-Catalog/guid.txt
     flat: yes
