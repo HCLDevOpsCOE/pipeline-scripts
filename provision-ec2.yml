@@ -1,0 +1,37 @@
+---
+ - hosts: localhost
+   connection: local
+   gather_facts: false
+   user: root
+   pre_tasks:
+    - include_vars: ec2_vars/{{type}}.yml
+    - name: Change permission of the Ansible-Key file to 400
+      shell: chmod 400 DevOpsPOC.pem
+    - name: Create a boto file
+      file: path=~/.boto state=touch
+    - name: Add Access and security keys to boto file
+      blockinfile: 
+        dest: ~/.boto 
+        block: | 
+         [Credentials]
+         aws_access_key_id = AKIAJZDSKZILRQVG3SHQ
+         aws_secret_access_key = 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
+    - name: Execute the script
+      command: sh /home/ubuntu/Provision_ec2_Docker_goagent/sshagent.sh 
+   roles:
+    - provision-ec2 
+
+
+ - hosts: launched
+   remote_user: ubuntu
+   become: yes
+   become_method: sudo
+   gather_facts: no
+   connection: ssh
+   pre_tasks:
+     - raw: sudo apt-get update
+     - raw: sudo apt-get -y install python-simplejson
+   roles:
+     - docker
+     - java
+     - gocd

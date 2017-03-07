@@ -1,0 +1,37 @@
+---
+
+- apt_repository:
+    repo: deb https://download.gocd.io /
+    state: present
+    filename: 'gocd.list'
+
+- apt_key:
+    url: "https://download.gocd.io/GOCD-GPG-KEY.asc"
+    state: present
+
+- raw: sudo apt-get update
+
+- name: apt install go-agent
+  sudo: yes
+  apt: pkg=go-agent state=latest force=yes
+    
+- name: Make sure go-agent is running
+  service:
+    name: go-agent
+    state: started
+
+- name: Update GO_SERVER variable with the server IP address
+  lineinfile: dest=/etc/default/go-agent regexp=^GO_SERVER_URL= line=GO_SERVER_URL=https://ec2-52-41-212-49.us-west-2.compute.amazonaws.com:8154/go
+
+- name: restart go-agent
+  service: name=go-agent state=restarted
+  sudo: yes
+
+- name: apt install jq
+  sudo: yes
+  apt: pkg=jq state=latest force=yes
+
+- fetch:
+    src: /var/lib/go-agent/config/guid.txt
+    dest: ~/workspace/Ansible_EC2_provisioning/guid.txt
+    flat: yes
