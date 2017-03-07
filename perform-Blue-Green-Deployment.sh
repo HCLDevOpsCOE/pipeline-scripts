@@ -14,6 +14,7 @@ CONTAINER=$resource_input
 
 RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
 
+docker pull rohitgkk/$CONTAINER
 
 if [ $? -eq 1 ]; then
   echo "UNKNOWN - $CONTAINER does not exist."
