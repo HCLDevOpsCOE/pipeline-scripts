@@ -37,9 +37,9 @@
     groups: docker
     append: yes
  
- - service:
-    name: docker
-    state: restarted
+- name: restart docker
+  service: name=docker state=restarted
+  sudo: yes
 
 - fetch:
     src: /var/lib/go-agent/config/guid.txt
