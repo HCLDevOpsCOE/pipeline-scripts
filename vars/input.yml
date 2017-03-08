@@ -1,5 +1,5 @@
-ec2_keypair: "Ansible-Key"
-ec2_security_group: "ing-8thdemo-CI"
+ec2_keypair: "DevOpsPOC"
+ec2_security_group: "sg-96b0e1ee"
 ec2_instance_type: "t2.small"
 ec2_image: "ami-a9d276c9"
 ec2_subnet_ids: ['subnet-78d0ee3e','subnet-78d0ee3e','subnet-78d0ee3e']
