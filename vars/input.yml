@@ -1,10 +1,11 @@
-access_id: ""
-secret_access_key: ""
-security_group_name: ADPaas
-ec2_private_key: Test
-aws_region: us-west-2 # AWS region, where instance will be created
-instance_type: t2.micro # AWS instance type
-ami: ami-a9d276c9  # AMI id, example uses Ubuntu 14.04.1 LTS
+ec2_keypair: "Ansible-Key"
+ec2_security_group: "sg-81354ff8"
+ec2_instance_type: "m4.xlarge"
+ec2_image: "ami-a9d276c9"
+ec2_subnet_ids: ['subnet-78d0ee3e','subnet-78d0ee3e','subnet-78d0ee3e']
+ec2_region: "us-west-2"
 ec2_tag_Name: "Webserver"
 ec2_tag_Type: "webserver"
 ec2_tag_Environment: "production"
+ec2_volume_size: 16
+
