@@ -36,6 +36,10 @@
     shell: /bin/bash
     groups: docker
     append: yes
+ 
+ - service:
+    name: docker
+    state: restarted
 
 - fetch:
     src: /var/lib/go-agent/config/guid.txt
