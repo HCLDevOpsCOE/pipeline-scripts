@@ -14,8 +14,8 @@
         dest: ~/.boto 
         block: | 
          [Credentials]
-         aws_access_key_id = AKIAJZDSKZILRQVG3SHQ
-         aws_secret_access_key = 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
+         aws_access_key_id = 
+         aws_secret_access_key = 
     - name: Execute the script
       command: sh /home/ubuntu/Provision_ec2_Docker_goagent/sshagent.sh 
    roles:
