@@ -33,7 +33,11 @@ if [ "$RUNNING" == "false" ]; then
 fi
 
 echo "CONTAINER ID of $app_name is below:"
-echo `docker run --name $CONTAINER -d -P -e 'SPRING_PROFILES_ACTIVE=aws' -p $app_port:$app_port rohitgkk/$CONTAINER`
+docker run --name $CONTAINER -d -P -e 'SPRING_PROFILES_ACTIVE=aws' -p $app_port:$app_port rohitgkk/$CONTAINER
+
+if [ $? -ne 0 ]; then
+	exit 1
+fi
 
 sleep 30
 
