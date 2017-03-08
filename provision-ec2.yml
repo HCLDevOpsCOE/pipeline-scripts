@@ -1,36 +1,41 @@
 ---
  - hosts: localhost
    connection: local
-   gather_facts: false
+   gather_facts: True
    user: root
    pre_tasks:
-    - include_vars: ec2_vars/{{type}}.yml
-    - name: Change permission of the Ansible-Key file to 400
-      shell: chmod 400 DevOpsPOC.pem
+    - include_vars: vars/input.yml
     - name: Create a boto file
       file: path=~/.boto state=touch
+    - name: Create a file
+      file: path={{ playbook_dir }}/Output state=touch
     - name: Add Access and security keys to boto file
-      blockinfile: 
-        dest: ~/.boto 
-        block: | 
+      blockinfile:
+        dest: ~/.boto
+        block: |
          [Credentials]
-         aws_access_key_id = 
-         aws_secret_access_key = 
-    - name: Execute the script
-      command: sh /home/ubuntu/Provision_ec2_Docker_goagent/sshagent.sh 
+         aws_access_key_id = {{ access_id }}
+         aws_secret_access_key = {{ secret_access_key }}
    roles:
-    - provision-ec2 
+    - provision-ec2
 
-
- - hosts: launched
+ - hosts: ec2_hosts
    remote_user: ubuntu
    become: yes
    become_method: sudo
    gather_facts: no
    connection: ssh
    pre_tasks:
-     - raw: sudo apt-get update
-     - raw: sudo apt-get -y install python-simplejson
+    - include_vars: vars/input.yml
+    - raw: sudo apt-get update
+    - raw: sudo apt-get -y install python-simplejson
+
+ - hosts: ec2_hosts
+   remote_user: ubuntu
+   become: yes
+   become_method: sudo
+   gather_facts: True
+   connection: ssh
    roles:
      - docker
      - java
