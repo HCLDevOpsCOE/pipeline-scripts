@@ -31,15 +31,33 @@
   sudo: yes
   apt: pkg=jq state=latest force=yes
 
-- user:
-    name: go
-    shell: /bin/bash
-    groups: docker
-    append: yes
- 
+- name: Make sure we have a 'docker' group
+  group:
+    name: docker
+    state: present
+
+- name: Allow 'docker' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%docker'
+    line: '%docker ALL=(ALL) NOPASSWD: ALL'
+
+- name: Add go user to docker group
+  user: name=go groups=docker append=yes state=present
+
 - name: restart docker
   service: name=docker state=restarted
   sudo: yes
+
+- name: restart go-agent
+  service: name=go-agent state=restarted
+  sudo: yes
+
+- name: Set up authorized keys for the deployer user
+  authorized_key: user=deployer key="{{item}}"
+  with_file:
+    - /home/railsdev/.ssh/id_rsa.pub
 
 - fetch:
     src: /var/lib/go-agent/config/guid.txt
