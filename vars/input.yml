@@ -1,11 +1,11 @@
 ec2_keypair: "Ansible-Key"
-ec2_security_group: "sg-81354ff8"
-ec2_instance_type: "m4.xlarge"
+ec2_security_group: "ing-8thdemo-CI"
+ec2_instance_type: "t2.small"
 ec2_image: "ami-a9d276c9"
 ec2_subnet_ids: ['subnet-78d0ee3e','subnet-78d0ee3e','subnet-78d0ee3e']
 ec2_region: "us-west-2"
 ec2_tag_Name: ""
 ec2_tag_Type: ""
-ec2_tag_Environment: ""
+ec2_tag_Environment: "production"
 ec2_volume_size: 16
 
