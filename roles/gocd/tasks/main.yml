@@ -54,11 +54,6 @@
   service: name=go-agent state=restarted
   sudo: yes
 
-- name: Set up authorized keys for the deployer user
-  authorized_key: user=deployer key="{{item}}"
-  with_file:
-    - /home/railsdev/.ssh/id_rsa.pub
-
 - fetch:
     src: /var/lib/go-agent/config/guid.txt
     dest: ~/workspace/Perform-Blue-Green-Deployment-Catalog/guid.txt
