@@ -31,6 +31,12 @@
   sudo: yes
   apt: pkg=jq state=latest force=yes
 
+- user:
+    name: go
+    shell: /bin/bash
+    groups: docker
+    append: yes
+
 - fetch:
     src: /var/lib/go-agent/config/guid.txt
     dest: ~/workspace/Perform-Blue-Green-Deployment-Catalog/guid.txt
