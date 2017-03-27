@@ -21,7 +21,7 @@
     state: started
 
 - name: Update GO_SERVER variable with the server IP address
-  lineinfile: dest=/etc/default/go-agent regexp=^GO_SERVER_URL= line=GO_SERVER_URL=https://ec2-52-41-212-49.us-west-2.compute.amazonaws.com:8154/go
+  lineinfile: dest=/etc/default/go-agent regexp=^GO_SERVER_URL= line=GO_SERVER_URL=https://ec2-35-166-116-91.us-west-2.compute.amazonaws.com:8154/go
 
 - name: restart go-agent
   service: name=go-agent state=restarted
