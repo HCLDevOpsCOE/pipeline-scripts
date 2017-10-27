@@ -34,9 +34,9 @@
    remote_user: ubuntu
    become: yes
    become_method: sudo
-   gather_facts: True
+   gather_facts: no
    connection: ssh
    roles:
-     - docker
      - java
+     - docker
      - gocd
