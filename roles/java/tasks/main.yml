@@ -8,9 +8,13 @@
     - debconf-utils
   tags: java
 
+#- name: Add the webupd8 APT repository
+#  apt_repository: repo="ppa:webupd8team/java"
+#  tags: java  
+
 - name: Add the webupd8 APT repository
-  apt_repository: repo="ppa:webupd8team/java"
-  tags: java  
+  shell: sudo add-apt-repository ppa:webupd8team/java
+  tags: java
 
 - name: Automatically select the Oracle License
   shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
